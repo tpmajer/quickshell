@@ -7,6 +7,7 @@
 #include <qdir.h>
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <qicon.h>
 #include <qlogging.h>
 #include <qloggingcategory.h>
 #include <qnamespace.h>
@@ -582,6 +583,10 @@ void DesktopEntryManager::onScanCompleted(const QList<ParsedDesktopEntryData>& s
 		if (!entry->bNoDisplay) newApplications.append(entry);
 
 	this->mApplications.diffUpdate(newApplications);
+
+	// An application's icons come with its desktop entry, but Qt keeps
+	// the icon themes, with their caches, as first read: read them again.
+	QIcon::setThemeSearchPaths(QIcon::themeSearchPaths());
 
 	emit this->applicationsChanged();
 
