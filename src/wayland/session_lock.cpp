@@ -146,7 +146,7 @@ void WlSessionLock::realizeLockTarget(WlSessionLock* old) {
 
 			// preload initial surfaces to make the chance of the compositor displaying a blank
 			// frame before the lock surfaces are shown as low as possible.
-			this->updateSurfaces(false);
+			this->updateSurfaces(false, old);
 
 			auto wasLocked = this->isLocked();
 			if (!this->manager->lock()) {
